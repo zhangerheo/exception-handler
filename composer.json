@@ -1,0 +1,25 @@
+{
+  "name": "tinywan/exception-handler",
+  "description": "webman exception handler plugin",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.4",
+    "workerman/webman-framework": "^1.5||^2.0",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tinywan\\ExceptionHandler\\": "src"
+    }
+  },
+  "require-dev": {
+    "workerman/webman": "^1.0",
+    "phpstan/phpstan": "^1.4",
+    "friendsofphp/php-cs-fixer": "^3.6",
+    "tinywan/jwt": "^1.2",
+    "tinywan/storage": "^0.2.2",
+    "webman/think-orm": "^1.1",
+    "tinywan/validate": "^1.0"
+  }
+}
