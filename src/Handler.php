@@ -24,6 +24,7 @@ use Tinywan\Validate\Exception\ValidateException;
 use Webman\Exception\ExceptionHandler;
 use Webman\Http\Request;
 use Webman\Http\Response;
+use Webman\RateLimiter\RateLimitException;
 
 class Handler extends ExceptionHandler
 {
@@ -187,16 +188,14 @@ class Handler extends ExceptionHandler
         } elseif ($e instanceof ServerErrorHttpException) {
             $this->errorMessage = $e->errorMessage;
             $this->statusCode = 500;
+        } elseif ($e instanceof RateLimitException) {
+            $this->statusCode = 429;
         } else {
             $this->statusCode = $status['server_error'] ?? 500;
             $this->errorMessage = isset($status['server_error_is_response']) && $status['server_error_is_response'] ? $e->getMessage() : 'Internal Server Error!!';
             $this->error = $e->getMessage();
 
-        /*   Logger::error($this->errorMessage, array_merge($this->responseData, [
-                'error' => $this->error,
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ]));*/
+
         }
     }
 
@@ -274,14 +273,14 @@ class Handler extends ExceptionHandler
         ];
 
         $header = array_merge(['Content-Type' => 'application/json;charset=utf-8'], $this->header);
-        return new Response($this->statusCode, $header, json_encode($responseBody,JSON_UNESCAPED_UNICODE));
+        return new Response($this->statusCode, $header, json_encode($responseBody, JSON_UNESCAPED_UNICODE));
     }
 
     private function setCode($bodyValue, $errorCode)
     {
-        if($errorCode > 0){
+        if ($errorCode > 0) {
             return $errorCode;
         }
-        return  $bodyValue[0] ?? 0;
+        return $bodyValue[0] ?? 0;
     }
 }
