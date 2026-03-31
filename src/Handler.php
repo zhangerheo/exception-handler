@@ -24,7 +24,7 @@ use Tinywan\Validate\Exception\ValidateException;
 use Webman\Exception\ExceptionHandler;
 use Webman\Http\Request;
 use Webman\Http\Response;
-use Webman\RateLimiter\RateLimitException;
+use support\limiter\RateLimitException;
 
 class Handler extends ExceptionHandler
 {
@@ -157,7 +157,7 @@ class Handler extends ExceptionHandler
     /**
      * @desc: 处理扩展的异常
      * @param Throwable $e
-     * @author Tinywan(ShaoBo Wan)
+     * @author bensharp 
      */
     protected function solveExtraException(Throwable $e): void
     {
