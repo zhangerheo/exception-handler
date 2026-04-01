@@ -272,7 +272,13 @@ class Handler extends ExceptionHandler
                 $bodyKey[2] ?? 'data' => $this->responseData,
         ];
 
-        $header = array_merge(['Content-Type' => 'application/json;charset=utf-8'], $this->header);
+        $header = array_merge(['Content-Type' => 'application/json;charset=utf-8',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => '*',
+            'Access-Control-Allow-Headers' => '*',
+        ], $this->header);
+        
         return new Response($this->statusCode, $header, json_encode($responseBody, JSON_UNESCAPED_UNICODE));
     }
 
