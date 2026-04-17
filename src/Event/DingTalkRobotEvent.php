@@ -42,6 +42,7 @@ class DingTalkRobotEvent
         $message .= ' - 请求IP：' . $args['client_ip'] . " \n";
         $message .= ' - 请求时间：' . $args['timestamp'] . " \n";
         $message .= ' - 请求参数：' . json_encode($args['request_param'], JSON_UNESCAPED_UNICODE) . " \n";
+        $message .= ' - User Agent：' .  request()->header('User-Agent'). " \n";
         $message .= ' - 异常文件：' . $args['file'] . " \n";
         $message .= ' - 文件行数：' . $args['line'] . " \n";
         $data = [
