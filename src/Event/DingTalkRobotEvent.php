@@ -35,6 +35,7 @@ class DingTalkRobotEvent
             $message .= $text;
         }
 
+         $request = request();
         $message .= ' - 响应错误： ' .$args['message']. " \n";
         $message .= ' - 详细错误：' . $args['error'] . " \n";
         $message .= ' - 请求域名：' . $args['domain'] . " \n";
@@ -42,7 +43,8 @@ class DingTalkRobotEvent
         $message .= ' - 请求IP：' . $args['client_ip'] . " \n";
         $message .= ' - 请求时间：' . $args['timestamp'] . " \n";
         $message .= ' - 请求参数：' . json_encode($args['request_param'], JSON_UNESCAPED_UNICODE) . " \n";
-        $message .= ' - User Agent：' .  request()->header('User-Agent').' '. request()->header('versionName'). " \n";
+        $message .= ' - User Agent：' .  $request->header('User-Agent').' '. $request->header('versionName'). " \n";
+        $message .= ' - Device Name：' .  $request->header('Device-Name') . " \n";
         $message .= ' - 异常文件：' . $args['file'] . " \n";
         $message .= ' - 文件行数：' . $args['line'] . " \n";
         $data = [
